@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RoarMD — Maxine, your AI companion for midlife health, backed by real clinicians, your own data, and a plan that's all yours.">
+  <title>Hi, I'm Maxine | RoarMD</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="top">
+
+  <!-- ============================================================
+       HOLY GRAIL SHELL  ·  header / [nav | main | aside] / footer
+       The magazine grid lives inside <main> (see .magazine-grid)
+       ============================================================ -->
+  <header class="site-header" role="banner">
+    <a class="brand" href="#top" aria-label="RoarMD home">
+      <img src="roarmd-logo.svg" alt="RoarMD" width="120" height="38">
+    </a>
+
+    <button class="menu-toggle" type="button" id="menuToggle"
+            aria-expanded="false" aria-controls="siteNav">
+      <span class="visually-hidden">Open navigation menu</span>
+      <svg viewBox="0 0 256 256" width="22" height="22" fill="none" stroke="currentColor"
+           stroke-width="20" stroke-linecap="round" aria-hidden="true">
+        <line x1="32" y1="64" x2="224" y2="64"></line>
+        <line x1="32" y1="128" x2="224" y2="128"></line>
+        <line x1="32" y1="192" x2="224" y2="192"></line>
+      </svg>
+    </button>
+
+    <div class="header-actions">
+      <a class="btn btn-primary" href="#">Create account</a>
+      <a class="btn btn-outline" href="#">Log in</a>
+    </div>
+  </header>
+
+  <!-- ===================== SIDEBAR (left) ===================== -->
+  <nav class="site-nav" id="siteNav" aria-label="RoarMD sections">
+    <ul class="nav-list">
+      <li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="grp-interest">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="128" cy="128" r="96"></circle><circle cx="128" cy="128" r="48"></circle>
+          </svg>
+          <span>I’m interested in</span>
+          <svg class="chevron" viewBox="0 0 256 256" width="16" height="16" fill="none" stroke="currentColor"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="208 96 128 176 48 96"></polyline>
+          </svg>
+        </button>
+        <ul class="nav-sublist" id="grp-interest">
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Hormone health</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Mind &amp; mood</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Metabolic health</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Sexual &amp; pelvic health</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Skin, hair &amp; body</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Healthful aging</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Sleep, energy &amp; recovery</button></li>
+          <li><button class="interest-toggle" type="button" aria-pressed="false"><span class="ring" aria-hidden="true"></span>Strength &amp; mobility</button></li>
+        </ul>
+      </li>
+
+      <li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="grp-interesting">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="96" y1="232" x2="160" y2="232"></line>
+            <path d="M84 180a80 80 0 1 1 88 0v12a8 8 0 0 1-8 8H92a8 8 0 0 1-8-8Z"></path>
+          </svg>
+          <span>Things you’ll find interesting</span>
+          <svg class="lock" viewBox="0 0 256 256" width="15" height="15" fill="none" stroke="#6a6272"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="48" y="112" width="160" height="112" rx="12"></rect>
+            <path d="M88 112V80a40 40 0 0 1 80 0v32"></path>
+          </svg>
+          <span class="visually-hidden">(members only)</span>
+          <svg class="chevron" viewBox="0 0 256 256" width="16" height="16" fill="none" stroke="currentColor"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="208 96 128 176 48 96"></polyline>
+          </svg>
+        </button>
+        <ul class="nav-sublist nav-sublist--links" id="grp-interesting">
+          <li><a href="#">Managing hot flashes</a></li>
+          <li><a href="#">Sleeping better</a></li>
+          <li><a href="#">Getting my energy back</a></li>
+          <li><a href="#">Improving brain clarity</a></li>
+          <li><a href="#">Maintaining a healthy weight</a></li>
+          <li><a href="#">Improving sexual &amp; pelvic health</a></li>
+          <li><a href="#">Feeling better in my body</a></li>
+          <li><a href="#">Investing in healthy aging</a></li>
+          <li><a href="#">Improving my nutrition</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="grp-connect">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="64" cy="128" r="28"></circle><circle cx="188" cy="60" r="28"></circle>
+            <circle cx="188" cy="196" r="28"></circle>
+            <line x1="88" y1="114" x2="164" y2="74"></line><line x1="88" y1="142" x2="164" y2="182"></line>
+          </svg>
+          <span>Connect</span>
+          <svg class="lock" viewBox="0 0 256 256" width="15" height="15" fill="none" stroke="#6a6272"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="48" y="112" width="160" height="112" rx="12"></rect>
+            <path d="M88 112V80a40 40 0 0 1 80 0v32"></path>
+          </svg>
+          <span class="visually-hidden">(members only)</span>
+          <svg class="chevron" viewBox="0 0 256 256" width="16" height="16" fill="none" stroke="currentColor"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="208 96 128 176 48 96"></polyline>
+          </svg>
+        </button>
+        <ul class="nav-sublist nav-sublist--links" id="grp-connect">
+          <li><a href="#">Labs</a></li>
+          <li><a href="#">Wearables</a></li>
+          <li><a href="#">Body composition</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-group">
+        <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="grp-membership">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="48" y="32" width="160" height="192" rx="12"></rect>
+            <line x1="88" y1="96" x2="168" y2="96"></line><line x1="88" y1="136" x2="168" y2="136"></line>
+            <line x1="88" y1="176" x2="136" y2="176"></line>
+          </svg>
+          <span>Membership</span>
+          <svg class="chevron" viewBox="0 0 256 256" width="16" height="16" fill="none" stroke="currentColor"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="208 96 128 176 48 96"></polyline>
+          </svg>
+        </button>
+        <ul class="nav-sublist nav-sublist--links" id="grp-membership">
+          <li><a href="#membership">Ask</a></li>
+          <li><a href="#membership">Connect</a></li>
+          <li><a href="#membership">Thrive</a></li>
+          <li><a class="nav-highlight" href="#membership">Compare memberships</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M48 80h160l-16 128H64Z"></path><path d="M96 80a32 32 0 0 1 64 0"></path>
+          </svg>
+          <span>Marketplace</span>
+          <svg class="lock" viewBox="0 0 256 256" width="15" height="15" fill="none" stroke="#6a6272"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="48" y="112" width="160" height="112" rx="12"></rect>
+            <path d="M88 112V80a40 40 0 0 1 80 0v32"></path>
+          </svg>
+          <span class="visually-hidden">(members only)</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-item" href="#">
+          <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+               stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="40" y="48" width="176" height="168" rx="12"></rect>
+            <line x1="40" y1="96" x2="216" y2="96"></line><line x1="88" y1="28" x2="88" y2="64"></line>
+            <line x1="168" y1="28" x2="168" y2="64"></line>
+          </svg>
+          <span>Schedule clinician visit</span>
+          <svg class="lock" viewBox="0 0 256 256" width="15" height="15" fill="none" stroke="#6a6272"
+               stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="48" y="112" width="160" height="112" rx="12"></rect>
+            <path d="M88 112V80a40 40 0 0 1 80 0v32"></path>
+          </svg>
+          <span class="visually-hidden">(members only)</span>
+        </a>
+      </li>
+    </ul>
+
+    <hr class="nav-divider">
+
+    <ul class="nav-list nav-list--secondary">
+      <li><a class="nav-plain" href="#about">About us</a></li>
+      <li><a class="nav-plain" href="#">Settings</a></li>
+      <li><a class="nav-plain" href="#">Contact us</a></li>
+    </ul>
+
+    <ul class="nav-social" aria-label="RoarMD on social media">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">TikTok</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">YouTube</a></li>
+      <li><a href="#">Facebook</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============== MAIN CONTENT — MAGAZINE GRID ============== -->
+  <main class="site-main" id="main">
+    <div class="magazine-grid">
+
+      <!-- HERO SPREAD: feature column + rail column -->
+      <section class="hero-spread" aria-labelledby="heroHeading">
+        <div class="hero-feature">
+          <p class="eyebrow-badge">
+            <span class="badge-m" aria-hidden="true">M</span>New here? Welcome. Pull up a chair.
+          </p>
+          <h1 id="heroHeading">Hi, I’m <em>Maxine.</em></h1>
+          <p class="lede">Your AI companion for midlife health, backed by real clinicians, your own data, and a plan that’s all yours.</p>
+
+          <form class="composer" id="askForm" autocomplete="off">
+            <label class="visually-hidden" for="ask">Ask Maxine</label>
+            <input id="ask" name="ask" type="text" placeholder="Ask me anything about your health. How can I help?">
+            <div class="composer-bar">
+              <button class="icon-btn icon-btn--sm" type="button" aria-label="Attach a file">
+                <svg viewBox="0 0 256 256" width="18" height="18" fill="none" stroke="currentColor"
+                     stroke-width="18" stroke-linecap="round" aria-hidden="true">
+                  <line x1="128" y1="40" x2="128" y2="216"></line><line x1="40" y1="128" x2="216" y2="128"></line>
+                </svg>
+              </button>
+              <div class="composer-actions">
+                <button class="icon-btn" type="button" aria-label="Speak to Maxine">
+                  <svg viewBox="0 0 256 256" width="18" height="18" fill="none" stroke="currentColor"
+                       stroke-width="18" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="88" y="24" width="80" height="136" rx="40"></rect>
+                    <path d="M200 128a72 72 0 0 1-144 0"></path>
+                    <line x1="128" y1="200" x2="128" y2="232"></line>
+                  </svg>
+                </button>
+                <button class="icon-btn icon-btn--send" type="submit" aria-label="Send">
+                  <svg viewBox="0 0 256 256" width="20" height="20" fill="none" stroke="currentColor"
+                       stroke-width="22" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="128" y1="216" x2="128" y2="40"></line>
+                    <polyline points="56 112 128 40 200 112"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <ul class="trust-row">
+            <li>
+              <svg viewBox="0 0 256 256" width="13" height="13" fill="none" stroke="currentColor"
+                   stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="128" cy="96" r="48"></circle><path d="M40 216c18-34 50-52 88-52s70 18 88 52"></path>
+              </svg>
+              Anonymous · Built by clinicians
+            </li>
+            <li>
+              <svg viewBox="0 0 256 256" width="13" height="13" fill="none" stroke="currentColor"
+                   stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="48" y="112" width="160" height="112" rx="12"></rect>
+                <path d="M88 112V80a40 40 0 0 1 80 0v32"></path>
+              </svg>
+              HIPAA · Private &amp; secure
+            </li>
+          </ul>
+
+          <div class="reply" id="replyPanel" hidden aria-live="polite">
+            <p class="reply-question" id="replyQuestion"></p>
+            <div class="reply-body">
+              <span class="badge-m badge-m--lg" aria-hidden="true">M</span>
+              <div class="reply-content">
+                <p id="replyText"></p>
+                <div class="reply-actions">
+                  <a class="btn btn-dark btn-sm" href="#">Create account to save</a>
+                  <a class="btn btn-outline btn-sm" href="#">Talk to a clinician</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="chips" id="chipList">
+            <li><button type="button">Lose weight</button></li>
+            <li><button type="button">Sleep better</button></li>
+            <li><button type="button">Get rid of brain fog</button></li>
+            <li><button type="button">Have more energy</button></li>
+            <li><button type="button">Feel less anxious</button></li>
+            <li><button type="button">Build strength</button></li>
+            <li><button type="button">Better nutrition</button></li>
+            <li><button type="button">Address hair loss</button></li>
+          </ul>
+        </div>
+
+        <aside class="hero-rail" aria-labelledby="moreThanChat">
+          <h2 id="moreThanChat" class="kicker">More than a chat</h2>
+          <ul class="rail-cards">
+            <li>
+              <a class="rail-card rail-card--purple" href="#">
+                <svg viewBox="0 0 256 256" width="22" height="22" fill="none" stroke="#4a2f97"
+                     stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="128" cy="88" r="44"></circle><path d="M44 216c16-36 48-56 84-56s68 20 84 56"></path>
+                </svg>
+                <strong>Real clinicians</strong>
+                <span>Visits, care and medications</span>
+              </a>
+            </li>
+            <li>
+              <a class="rail-card rail-card--teal" href="#">
+                <svg viewBox="0 0 256 256" width="22" height="22" fill="none" stroke="#1f6f7f"
+                     stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="32 136 72 136 96 80 136 184 164 112 184 136 224 136"></polyline>
+                </svg>
+                <strong>Your data, connected</strong>
+                <span>Labs, wearables, body scans</span>
+              </a>
+            </li>
+            <li>
+              <a class="rail-card rail-card--green" href="#">
+                <svg viewBox="0 0 256 256" width="22" height="22" fill="none" stroke="#02431f"
+                     stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="48" y="32" width="160" height="192" rx="12"></rect>
+                  <polyline points="88 128 112 152 168 96"></polyline>
+                </svg>
+                <strong>A plan that’s yours</strong>
+                <span>Built from what you share</span>
+              </a>
+            </li>
+            <li>
+              <a class="rail-card rail-card--peach" href="#">
+                <svg viewBox="0 0 256 256" width="22" height="22" fill="none" stroke="#b8361c"
+                     stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M48 80h160l-16 128H64Z"></path><path d="M96 80a32 32 0 0 1 64 0"></path>
+                </svg>
+                <strong>Vetted marketplace</strong>
+                <span>Products RoarMD validates</span>
+              </a>
+            </li>
+          </ul>
+          <p class="rail-note">Come back anytime. Your chats and plan stay saved to your account.</p>
+        </aside>
+      </section>
+
+      <!-- MEMBERSHIP — full-width magazine block -->
+      <section class="plans" id="membership" aria-labelledby="plansHeading">
+        <header class="section-head">
+          <h2 id="plansHeading">Membership</h2>
+          <p>Start free. Add labs, clinicians and more when you’re ready.</p>
+        </header>
+
+        <ul class="plan-grid">
+          <li class="plan plan--ask">
+            <h3>Ask</h3>
+            <p class="plan-price">Free</p>
+            <p class="plan-tagline">Start here</p>
+            <ul class="plan-features">
+              <li>Symptom tracking</li>
+              <li>Your interests, personalized</li>
+              <li>Curated content</li>
+              <li>Marketplace access</li>
+            </ul>
+            <a class="btn btn-dark" href="#">Start free</a>
+          </li>
+
+          <li class="plan plan--connect">
+            <p class="plan-flag">Most popular</p>
+            <h3>Connect</h3>
+            <p class="plan-price">$29<span>/month</span></p>
+            <p class="plan-tagline">Everything in Ask, plus</p>
+            <ul class="plan-features">
+              <li>1 lab panel</li>
+              <li>1 annual clinician visit</li>
+              <li>Connect your wearables</li>
+              <li>Rebates on marketplace purchases</li>
+            </ul>
+            <a class="btn btn-primary" href="#">Choose Connect</a>
+          </li>
+
+          <li class="plan plan--thrive">
+            <h3>Thrive</h3>
+            <p class="plan-price">$49<span>/month</span></p>
+            <p class="plan-tagline">Everything in Connect, plus</p>
+            <ul class="plan-features plan-features--light">
+              <li>Body composition</li>
+              <li>3 lab panels</li>
+              <li>2 clinician visits</li>
+            </ul>
+            <a class="btn btn-light" href="#">Choose Thrive</a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ABOUT US — magazine index columns -->
+      <section class="about" id="about" aria-labelledby="aboutHeading">
+        <h2 id="aboutHeading">About us</h2>
+        <div class="about-grid">
+          <article>
+            <h3>Areas of care</h3>
+            <ul class="about-links">
+              <li><a href="#">Menopause</a></li>
+              <li><a href="#">Weight loss</a></li>
+              <li><a href="#">Fitness &amp; strength</a></li>
+              <li><a href="#">Longevity</a></li>
+              <li><a href="#">Mental health</a></li>
+              <li><a href="#">Sleep</a></li>
+              <li><a href="#">Hair loss</a></li>
+              <li><a href="#">Nutrition</a></li>
+            </ul>
+          </article>
+          <article>
+            <h3>Who we are</h3>
+            <p>Whole-woman healthcare for midlife and beyond. Connected, proactive, and on your side.</p>
+            <a class="about-more" href="#">Our story</a>
+          </article>
+          <article>
+            <h3>Clinical advisors</h3>
+            <p>The physicians and experts who guide Maxine and our care.</p>
+            <a class="about-more" href="#">Meet the team</a>
+          </article>
+          <article>
+            <h3>The Roar Advantage</h3>
+            <p>AI that listens, clinicians who hear you, and your health in one place.</p>
+            <a class="about-more" href="#">Why RoarMD</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ================= RIGHT RAIL (Holy Grail) ================= -->
+  <aside class="site-aside" aria-labelledby="asideHeading">
+    <h2 id="asideHeading" class="kicker">Start with Maxine</h2>
+    <ul class="aside-topics">
+      <li><a href="#main">Hot flashes</a></li>
+      <li><a href="#main">Sleep &amp; energy</a></li>
+      <li><a href="#main">Brain clarity</a></li>
+      <li><a href="#main">Healthy weight</a></li>
+      <li><a href="#main">Heart &amp; labs</a></li>
+    </ul>
+    <p class="aside-note">Ask anything — no account needed to start.</p>
+    <a class="btn btn-primary btn-block" href="#">Create account</a>
+  </aside>
+
+  <!-- ==================== SITE FOOTER ==================== -->
+  <footer class="site-footer" role="contentinfo">
+    <p class="disclaimer">Maxine uses AI and does not replace a licensed clinician. In an emergency, call 911.</p>
+    <nav aria-label="Legal">
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Legal</a></li>
+        <li><a href="#">LegitScript</a></li>
+      </ul>
+    </nav>
+    <p class="copyright">&copy; 2026 RoarMD. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
