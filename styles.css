@@ -1,0 +1,956 @@
+/* ==========================================================================
+   RoarMD — "Hi, I'm Maxine" landing page
+   Layout strategy:
+   1. HOLY GRAIL (page shell) — CSS Grid with named areas:
+        header / [nav | main | aside] / footer
+   2. MAGAZINE LAYOUT (inside <main>) — a 12-column editorial grid:
+        hero spread (8-col feature + 4-col rail), full-bleed plan section,
+        multi-column about index.
+   Responsive: single column on mobile → two columns on tablet →
+   full Holy Grail + Magazine on desktop. No JS required for layout.
+   ========================================================================== */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Colour */
+  --ink:            #1c1a24;
+  --ink-soft:       #3a3540;
+  --ink-muted:      #4b4550;
+  --ink-faint:      #5f5866;
+  --grey:           #6a6272;
+  --coral:          #ff5035;
+  --coral-dark:     #b8361c;
+  --plum:           #4a2f97;
+  --lavender:       #f3ecfa;
+  --lavender-line:  #ddd5e8;
+  --lilac-line:     #d7cfe3;
+  --cream:          #f9f2ec;
+  --cream-line:     #e6dbcf;
+  --teal-bg:        #e8f7fa;
+  --teal-ink:       #1f6f7f;
+  --green-bg:       #eff3e1;
+  --green-ink:      #02431f;
+  --peach-bg:       #fff0eb;
+  --white:          #ffffff;
+  --footer-line:    #ece6f2;
+
+  /* Type */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  /* Space & shape */
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --shadow-composer: 0 12px 40px -24px rgba(74, 47, 151, 0.45);
+}
+
+/* ---------- Reset / base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, p, ul, figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--plum);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Accessible focus ring everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   1 · HOLY GRAIL SHELL
+   Mobile-first: everything stacks in reading order.
+   Tablet (≥640px): nav moves to the left of a full-width main.
+   Desktop (≥1024px): classic Holy Grail — header / nav|main|aside / footer.
+   ========================================================================== */
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "aside"
+    "footer";
+  min-height: 100vh;
+}
+
+.site-header { grid-area: header; }
+.site-nav    { grid-area: nav;    }
+.site-main   { grid-area: main;   }
+.site-aside  { grid-area: aside;  }
+.site-footer { grid-area: footer; }
+
+@media (min-width: 640px) {
+  body {
+    grid-template-columns: minmax(240px, 280px) 1fr;
+    grid-template-areas:
+      "header  header"
+      "nav     main"
+      "nav     aside"
+      "footer  footer";
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    grid-template-columns: minmax(250px, 300px) minmax(0, 1fr) minmax(220px, 280px);
+    grid-template-areas:
+      "header header header"
+      "nav    main   aside"
+      "footer footer footer";
+  }
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px clamp(16px, 4vw, 32px);
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream-line);
+}
+
+.brand img {
+  height: 34px;
+  width: auto;
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--lilac-line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* Hide the hamburger once the real sidebar is visible */
+@media (min-width: 640px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 15px;
+  border: 0;
+}
+
+.btn-sm {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--coral);
+  color: #111111;
+}
+
+.btn-outline {
+  border: 1px solid var(--lilac-line);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.btn-light {
+  background: var(--white);
+  color: var(--plum);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------- Sidebar navigation ---------- */
+.site-nav {
+  background: var(--cream);
+  padding: 16px 14px 24px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Mobile: collapsed drawer, toggled by the header button */
+@media (max-width: 639.98px) {
+  .site-nav {
+    display: none;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+    position: fixed;
+    inset: 65px 0 0 0;
+    z-index: 40;
+    overflow-y: auto;
+    padding: 20px clamp(16px, 5vw, 32px);
+  }
+}
+
+@media (min-width: 640px) {
+  .site-nav {
+    position: sticky;
+    top: 65px;
+    align-self: start;
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
+  }
+}
+
+.nav-group-toggle,
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-weight: 600;
+  text-align: left;
+}
+
+.nav-group-toggle span:first-of-type,
+.nav-item span:not(.visually-hidden) {
+  flex: 1;
+}
+
+.chevron {
+  flex: none;
+  transition: transform 150ms ease;
+}
+
+.nav-group-toggle[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.lock {
+  flex: none;
+}
+
+/* Collapsible sub-lists (CSS-only via aria-expanded state set by JS,
+   with graceful no-JS behaviour: lists simply stay visible/hidden below) */
+.nav-sublist {
+  display: none;
+  flex-direction: column;
+  padding: 0 0 6px 44px;
+  font-size: 14px;
+}
+
+.nav-group.is-open > .nav-sublist {
+  display: flex;
+}
+
+.nav-sublist--links li a {
+  display: block;
+  padding: 7px 0;
+}
+
+.nav-highlight {
+  font-weight: 600;
+  color: var(--plum);
+}
+
+/* Interest checkbox buttons */
+.interest-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  text-align: left;
+}
+
+.ring {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #a69cb0;
+  border-radius: 50%;
+  background: var(--white);
+  display: inline-grid;
+  place-items: center;
+}
+
+.ring::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 120ms ease;
+}
+
+.interest-toggle[aria-pressed="true"] .ring {
+  border-color: var(--coral);
+}
+
+.interest-toggle[aria-pressed="true"] .ring::after {
+  background: var(--coral);
+}
+
+.nav-divider {
+  border: 0;
+  height: 1px;
+  background: var(--cream-line);
+  margin: 10px 8px;
+}
+
+.nav-plain {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.nav-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 10px 12px 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Right rail (Holy Grail tertiary column) ---------- */
+.site-aside {
+  background: var(--lavender);
+  padding: 24px clamp(16px, 3vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .site-aside {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 24px;
+  }
+}
+
+.kicker {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.aside-topics {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.aside-topics a {
+  display: block;
+  padding: 6px 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.aside-note {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 24px clamp(16px, 4vw, 48px) 32px;
+  border-top: 1px solid var(--footer-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 20px;
+}
+
+/* ==========================================================================
+   2 · MAGAZINE GRID (inside <main>)
+   A 12-column editorial grid: asymmetric hero spread, wide blocks,
+   drop-style headlines and an index-style about section.
+   ========================================================================== */
+.site-main {
+  min-width: 0;                 /* keep grid children from overflowing */
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 48px);
+}
+
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(28px, 4vw, 56px) clamp(16px, 2.5vw, 32px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.magazine-grid > section {
+  grid-column: 1 / -1;          /* sections span the full measure … */
+  min-width: 0;
+}
+
+/* ---------- Hero spread: 8-col feature + 4-col rail ---------- */
+.hero-spread {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+  align-items: start;
+}
+
+.hero-feature {
+  grid-column: 1 / -1;          /* stacked by default */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.hero-rail {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .hero-feature { grid-column: 1 / span 8; }
+  .hero-rail    { grid-column: 9 / span 4; }
+}
+
+.eyebrow-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--lavender);
+  color: var(--plum);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge-m {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #111111;
+  font-family: var(--font-display);
+  font-size: 13px;
+}
+
+.badge-m--lg {
+  width: 32px;
+  height: 32px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Magazine headline treatment */
+.hero-feature h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(44px, 5.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+
+.hero-feature h1 em {
+  font-style: normal;
+  color: var(--coral);
+}
+
+.lede {
+  max-width: 640px;
+  font-size: clamp(17px, 1.5vw, 19px);
+  color: var(--ink-soft);
+}
+
+/* ---------- Ask composer ---------- */
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 12px;
+  border: 1px solid var(--lavender-line);
+  border-radius: 26px;
+  background: var(--white);
+  box-shadow: var(--shadow-composer);
+}
+
+.composer input {
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 17px;
+  color: var(--ink);
+  min-height: 40px;
+  padding: 0 4px;
+  width: 100%;
+}
+
+.composer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.composer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--lavender-line);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.icon-btn--sm {
+  width: 40px;
+  height: 40px;
+}
+
+.icon-btn--send {
+  border: 0;
+  background: var(--coral);
+  color: #111111;
+}
+
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-faint);
+}
+
+.trust-row li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trust-row svg {
+  display: inline-block;
+}
+
+/* ---------- Reply panel ---------- */
+.reply {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reply-question {
+  align-self: flex-end;
+  max-width: 80%;
+  padding: 12px 18px;
+  border-radius: 20px 20px 6px 20px;
+  background: var(--lavender);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.reply-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.reply-body .badge-m {
+  flex: none;
+}
+
+.reply-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reply-content p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.reply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Suggestion chips ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--lavender-line);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.chips button:hover {
+  border-color: var(--plum);
+  color: var(--plum);
+}
+
+/* ---------- Rail cards ("More than a chat") ---------- */
+.rail-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.rail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  color: var(--ink);
+}
+
+.rail-card strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.rail-card span:last-child {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+.rail-card--purple { background: var(--lavender); }
+.rail-card--teal   { background: var(--teal-bg); }
+.rail-card--green  { background: var(--green-bg); }
+.rail-card--peach  { background: var(--peach-bg); }
+
+.rail-note {
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Membership plans ---------- */
+.plans {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-head h2,
+.about > h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 3.2vw, 42px);
+  line-height: 1.1;
+}
+
+.section-head p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--ink-muted);
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* Magazine twist: the featured plan spans wider on large screens */
+@media (min-width: 1024px) {
+  .plan-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .plan--ask     { grid-column: span 2; }
+  .plan--connect { grid-column: span 2; }
+  .plan--thrive  { grid-column: span 1; min-width: 0; }
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 22px;
+  border: 1px solid var(--lavender-line);
+  background: var(--white);
+}
+
+.plan h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.plan-price {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.plan-price span {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.plan-tagline {
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.plan-features li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Checkmark bullets, pure CSS */
+.plan-features li::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='none' stroke='%23000' stroke-width='28' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='40 136 96 192 224 64'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='none' stroke='%23000' stroke-width='28' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='40 136 96 192 224 64'/%3E%3C/svg%3E") center / contain no-repeat;
+  color: var(--plum);
+}
+
+.plan .btn {
+  align-self: stretch;
+}
+
+.plan--connect {
+  position: relative;
+  background: var(--lavender);
+  border-color: #d9c8ef;
+}
+
+.plan-flag {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--coral);
+  color: #111111;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.plan--thrive {
+  background: var(--plum);
+  border-color: var(--plum);
+  color: var(--white);
+}
+
+.plan--thrive .plan-tagline {
+  color: #e3d1ec;
+}
+
+.plan-features--light li {
+  color: var(--white);
+}
+
+.plan-features--light li::before {
+  color: var(--white);
+}
+
+/* ---------- About us — magazine index ---------- */
+.about {
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 24px 32px;
+}
+
+.about-grid article {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-grid h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--plum);
+}
+
+.about-grid p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.about-links li a {
+  display: block;
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.about-more {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--plum);
+}
+
+.disclaimer {
+  max-width: 720px;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
