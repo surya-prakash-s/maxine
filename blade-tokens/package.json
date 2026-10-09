@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@razorpay/blade": "^12.129.0"
+  }
+}
