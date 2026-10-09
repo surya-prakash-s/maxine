@@ -11,6 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Blade design tokens (razorpay/blade) — loaded first so the
+       RoarMD brand theme in styles.css always wins on colours & fonts -->
+  <link rel="stylesheet" href="blade-tokens.css">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -38,8 +42,10 @@
     </button>
 
     <div class="header-actions">
-      <a class="btn btn-primary" href="#">Create account</a>
-      <a class="btn btn-outline" href="#">Log in</a>
+      <!-- Blade Button: appearance="primary" size="medium" -->
+      <a class="blade-btn blade-btn--primary blade-btn--medium" href="#">Create account</a>
+      <!-- Blade Button: appearance="secondary" size="medium" -->
+      <a class="blade-btn blade-btn--secondary blade-btn--medium" href="#">Log in</a>
     </div>
   </header>
 
